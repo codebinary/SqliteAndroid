@@ -8,6 +8,7 @@
         android:id="@+id/lawyers_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"></ListView>
+        android:divider="@null"
+        tools:listitem="@layout/list_item_lawyer"/>
 
 </FrameLayout>

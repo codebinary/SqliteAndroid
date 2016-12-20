@@ -23,7 +23,7 @@ public class LawyerActivity extends AppCompatActivity {
         //Realizamos la transacción del tipo add para insertar el fragmento en el contenedor principal
         LawyersFragment fragment = (LawyersFragment) getSupportFragmentManager().findFragmentById(R.id.lawyers_container);
 
-        if(fragment != null){
+        if(fragment == null){
             fragment = LawyersFragment.newInstance();
             getSupportFragmentManager()
                     .beginTransaction()

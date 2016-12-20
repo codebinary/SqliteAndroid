@@ -29,6 +29,7 @@ public class Lawyer {
         this.avatarUri = avatarUri;
     }
 
+    //Constructor que permite la creación de un nuevo abogado
     public Lawyer(Cursor cursor){
         id = cursor.getString(cursor.getColumnIndex(LawyersContract.LawyerEntry.ID));
         name = cursor.getString(cursor.getColumnIndex(LawyersContract.LawyerEntry.NAME));
