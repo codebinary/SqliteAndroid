@@ -1,6 +1,7 @@
 package com.ontiveros.james.abogadosapp.data;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 * Entidad abogado
 * */
 public class Lawyer {
+
     private String id;
     private String name;
     private String specialty;
@@ -25,6 +27,28 @@ public class Lawyer {
         this.phoneNumber = phoneNumber;
         this.bio = bio;
         this.avatarUri = avatarUri;
+    }
+
+    public Lawyer(Cursor cursor){
+        id = cursor.getString(cursor.getColumnIndex(LawyersContract.LawyerEntry.ID));
+        name = cursor.getString(cursor.getColumnIndex(LawyersContract.LawyerEntry.NAME));
+        specialty = cursor.getString(cursor.getColumnIndex(LawyersContract.LawyerEntry.SPECIALTY));
+        phoneNumber = cursor.getString(cursor.getColumnIndex(LawyersContract.LawyerEntry.PHONE_NUMBER));
+        bio = cursor.getString(cursor.getColumnIndex(LawyersContract.LawyerEntry.BIO));
+        avatarUri = cursor.getString(cursor.getColumnIndex(LawyersContract.LawyerEntry.AVATAR_URI));
+    }
+
+    //Este método es solo una traducción de pares
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put(LawyersContract.LawyerEntry.ID, id);
+        values.put(LawyersContract.LawyerEntry.NAME, name);
+        values.put(LawyersContract.LawyerEntry.SPECIALTY, specialty);
+        values.put(LawyersContract.LawyerEntry.PHONE_NUMBER, phoneNumber);
+        values.put(LawyersContract.LawyerEntry.BIO, bio);
+        values.put(LawyersContract.LawyerEntry.AVATAR_URI, avatarUri);
+
+        return values;
     }
 
     public String getId() {
@@ -51,16 +75,5 @@ public class Lawyer {
         return avatarUri;
     }
 
-    //Este método es solo una traducción de pares
-    public ContentValues toContentValues() {
-        ContentValues values = new ContentValues();
-        values.put(LawyersContract.LawyerEntry.ID, id);
-        values.put(LawyersContract.LawyerEntry.NAME, name);
-        values.put(LawyersContract.LawyerEntry.SPECIALTY, specialty);
-        values.put(LawyersContract.LawyerEntry.PHONE_NUMBER, phoneNumber);
-        values.put(LawyersContract.LawyerEntry.BIO, bio);
-        values.put(LawyersContract.LawyerEntry.AVATAR_URI, avatarUri);
 
-        return values;
-    }
 }

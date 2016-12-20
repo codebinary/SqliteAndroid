@@ -2,6 +2,7 @@ package com.ontiveros.james.abogadosapp.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -102,5 +103,39 @@ public class LawyersDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
 
+    }
+
+    //Obtenemos todos los abogados
+    public Cursor getAllLawyers(){
+        return getReadableDatabase().query(
+                LawyersContract.LawyerEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    //Obtenemos por ID
+    /*Cursor c = db.query(
+            LawyerEntry.TABLE_NAME,  // Nombre de la tabla
+            null,  // Lista de Columnas a consultar
+            null,  // Columnas para la cláusula WHERE
+            null,  // Valores a comparar con las columnas del WHERE
+            null,  // Agrupar con GROUP BY
+            null,  // Condición HAVING para GROUP BY
+            null  // Cláusula ORDER BY
+    );*/
+    public Cursor getLawyerById(String lawyerId){
+        Cursor cursor = getReadableDatabase().query(
+                LawyersContract.LawyerEntry.TABLE_NAME,
+                null,
+                LawyersContract.LawyerEntry.ID + " LIKE ?",
+                new String[]{lawyerId},
+                null,
+                null,
+                null);
+        return cursor;
     }
 }
