@@ -37,17 +37,17 @@ public class LawyersDbHelper extends SQLiteOpenHelper {
                      + "UNIQUE (" + LawyersContract.LawyerEntry.ID + "))");
 
         //Contenedor de valores
-        ContentValues values = new ContentValues();
+        //ContentValues values = new ContentValues();
 
         //Pares clave-valor
-        values.put(LawyersContract.LawyerEntry.ID, "L-001");
+        /*values.put(LawyersContract.LawyerEntry.ID, "L-001");
         values.put(LawyersContract.LawyerEntry.NAME, "James Ontiveros");
         values.put(LawyersContract.LawyerEntry.SPECIALTY, "Ingeniero de sistemas");
         values.put(LawyersContract.LawyerEntry.PHONE_NUMBER, "300 200 1111");
         values.put(LawyersContract.LawyerEntry.BIO, "James es un progesional con 5 años de trayectoria ...");
-        values.put(LawyersContract.LawyerEntry.AVATAR_URI, "james.jpg");
+        values.put(LawyersContract.LawyerEntry.AVATAR_URI, "james.jpg");*/
 
-        //Insertar
+        //Insertar datos ficticios para prueba incial
         mockData(sqLiteDatabase);
 
     }
