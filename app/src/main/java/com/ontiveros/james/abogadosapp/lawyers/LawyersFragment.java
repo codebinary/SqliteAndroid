@@ -1,6 +1,7 @@
 package com.ontiveros.james.abogadosapp.lawyers;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ontiveros.james.abogadosapp.R;
 import com.ontiveros.james.abogadosapp.addeditlawyer.AddEditLawyerActivity;
@@ -22,6 +24,8 @@ import com.ontiveros.james.abogadosapp.data.LawyersDbHelper;
 *Vista para la lista de abogados
  */
 public class LawyersFragment extends Fragment {
+
+    public static final int REQUEST_UPDATE_DELETE_LAWYER = 2;
 
     private LawyersDbHelper mLawyersDbHelper;
     private ListView mLawyerListView;
@@ -88,6 +92,24 @@ public class LawyersFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(Activity.RESULT_OK == resultCode){
+            switch (requestCode){
+                case AddEditLawyerActivity.REQUEST_ADD_LAWYER:
+                    showSuccessfullSavedMessage();
+                    loadLawyers();
+                    break;
+                case REQUEST_UPDATE_DELETE_LAWYER:
+                    loadLawyers();
+                    break;
+
+
+
+            }
+        }
+    }
+
+    private void showSuccessfullSavedMessage() {
+        Toast.makeText(getActivity(), "Abogado guardado correctamente", Toast.LENGTH_SHORT).show();
     }
 
 
