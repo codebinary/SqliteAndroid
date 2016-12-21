@@ -21,6 +21,10 @@
         <activity
             android:name=".lawyerdetail.LawyerDetailActivity"
             android:label="@string/title_activity_lawyer_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".addeditlawyer.AddEditLawyerActivity"
+            android:label="@string/title_activity_add_edit_lawyer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

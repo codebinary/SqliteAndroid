@@ -11,7 +11,7 @@ import com.ontiveros.james.abogadosapp.R;
 
 public class LawyerActivity extends AppCompatActivity {
 
-    private static final String EXTRA_LAWYER_ID = "extra_lawyer_id";
+    public static final String EXTRA_LAWYER_ID = "extra_lawyer_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

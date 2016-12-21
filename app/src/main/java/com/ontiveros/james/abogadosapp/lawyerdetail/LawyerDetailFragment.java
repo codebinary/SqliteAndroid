@@ -2,6 +2,9 @@ package com.ontiveros.james.abogadosapp.lawyerdetail;
 
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -10,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.ontiveros.james.abogadosapp.R;
+import com.ontiveros.james.abogadosapp.data.Lawyer;
 import com.ontiveros.james.abogadosapp.data.LawyersDbHelper;
 
 /*
@@ -62,7 +68,15 @@ public class LawyerDetailFragment extends Fragment {
 
         mLawyersDbHelper = new LawyersDbHelper(getActivity());
 
+        //Cargamos el detalle de abogado con el método getLawyerById() con una tarea asíncrona.
+        //Llámala en onCreateView a través de un método loadLawyer();
+        loadLawyer();
+
         return root;
+    }
+
+    private void loadLawyer() {
+        new GetLawyerByIdTask().execute();
     }
 
     /*
@@ -74,5 +88,38 @@ public class LawyerDetailFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //Acciones
+    }
+
+    private void showLawyer(Lawyer lawyer){
+        mCollapsingView.setTitle(lawyer.getName());
+        Glide.with(this)
+                .load(Uri.parse("file:///android_asset/" + lawyer.getAvatarUri()))
+                .centerCrop()
+                .into(mAvatar);
+        mPhoneNumber.setText(lawyer.getPhoneNumber());
+        mSpecialty.setText(lawyer.getSpecialty());
+        mBio.setText(lawyer.getBio());
+    }
+
+    public void showLoadError(){
+        Toast.makeText(getActivity(), "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
+    }
+
+
+    private class GetLawyerByIdTask extends AsyncTask<Void, Void, Cursor>{
+        @Override
+        protected Cursor doInBackground(Void... voids) {
+            return mLawyersDbHelper.getLawyerById(mLawyerId);
+        }
+
+        @Override
+        protected void onPostExecute(Cursor cursor) {
+            super.onPostExecute(cursor);
+            if(cursor != null && cursor.moveToLast()){
+                showLawyer(new Lawyer(cursor));
+            }else{
+                showLoadError();
+            }
+        }
     }
 }

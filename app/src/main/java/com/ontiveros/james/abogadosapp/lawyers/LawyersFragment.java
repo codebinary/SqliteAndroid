@@ -10,9 +10,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.ontiveros.james.abogadosapp.R;
+import com.ontiveros.james.abogadosapp.addeditlawyer.AddEditLawyerActivity;
+import com.ontiveros.james.abogadosapp.data.LawyersContract;
 import com.ontiveros.james.abogadosapp.data.LawyersDbHelper;
 
 /**
@@ -53,6 +56,21 @@ public class LawyersFragment extends Fragment {
         //Setup
         mLawyerListView.setAdapter(mLawyersAdapter);
 
+        //Eventos
+        //Agregamos la escucha al presionar en un item
+        mLawyerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Obtenemos el item seleccionado usando getItem(i)
+                Cursor currentItem = (Cursor) mLawyersAdapter.getItem(i);
+                String currentLawyerId = currentItem.getString(currentItem.getColumnIndex(LawyersContract.LawyerEntry.ID));
+
+                //Con el id obtenido iniciamos una nueva actividad de detalle
+                showDetailScreen(currentLawyerId);
+            }
+        });
+
+
         //Instancia de helper
         mLawyersDbHelper = new LawyersDbHelper(getActivity());
 
@@ -70,6 +88,13 @@ public class LawyersFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void showDetailScreen(String lawyerId){
+        Intent intent = new Intent(getActivity(), AddEditLawyerActivity.class);
+        intent.putExtra(LawyerActivity.EXTRA_LAWYER_ID, lawyerId);
+        startActivityForResult(intent, AddEditLawyerActivity.REQUEST_ADD_LAWYER);
     }
 
     //Crea una tarea asíncrona dentro del fragmento,
