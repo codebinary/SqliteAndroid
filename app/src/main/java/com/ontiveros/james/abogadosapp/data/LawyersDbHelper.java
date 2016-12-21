@@ -20,6 +20,13 @@ public class LawyersDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Lawyers.db";
 
+    /*Parámetros:
+    *Context context => Contexto de la acción
+    * String name => Nombre del archivo con extensión .db donde se almacenara la bd y que asu vez es la base de datos
+    * CursorFactory factory => Asignamos null
+    * int version => Versión de la bd, su valor por default es 1, pero si se llama al método upgrade para actaulizar la bd
+    * a la nueva version. Si es menor llama a downUpgrade para volver a una versión previa
+    */
     public LawyersDbHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
