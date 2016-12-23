@@ -31,13 +31,16 @@ public class AddEditLawyerActivity extends AppCompatActivity {
 
         if(addEditLawyerFragment == null){
             addEditLawyerFragment = AddEditLawyerFragment.newInstance(lawyerId);
-
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.content_add_edit_lawyer, addEditLawyerFragment)
+                    .commit();
         }
-
-
-
-
-
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

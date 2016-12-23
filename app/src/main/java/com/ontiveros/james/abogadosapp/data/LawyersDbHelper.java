@@ -145,4 +145,21 @@ public class LawyersDbHelper extends SQLiteOpenHelper {
                 null);
         return cursor;
     }
+
+    public int deleteLawyer(String lawyerId){
+        return getWritableDatabase().delete(
+                LawyersContract.LawyerEntry.TABLE_NAME,
+                LawyersContract.LawyerEntry.ID + " LIKE ?",
+                new String[]{lawyerId}
+        );
+    }
+
+    public int updateLawyer(Lawyer lawyer, String lawyerId){
+        return getWritableDatabase().update(
+                LawyersContract.LawyerEntry.TABLE_NAME,
+                lawyer.toContentValues(),
+                LawyersContract.LawyerEntry.ID + " LIKE ?",
+                new String[]{lawyerId}
+        );
+    }
 }

@@ -19,6 +19,7 @@ import com.ontiveros.james.abogadosapp.R;
 import com.ontiveros.james.abogadosapp.addeditlawyer.AddEditLawyerActivity;
 import com.ontiveros.james.abogadosapp.data.LawyersContract;
 import com.ontiveros.james.abogadosapp.data.LawyersDbHelper;
+import com.ontiveros.james.abogadosapp.lawyerdetail.LawyerDetailActivity;
 
 /**
 *Vista para la lista de abogados
@@ -73,6 +74,14 @@ public class LawyersFragment extends Fragment {
                 showDetailScreen(currentLawyerId);
             }
         });
+        mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAddScreen();
+            }
+        });
+
+        getActivity().deleteDatabase(LawyersDbHelper.DATABASE_NAME);
 
 
         //Instancia de helper
@@ -88,6 +97,12 @@ public class LawyersFragment extends Fragment {
         //Cargar datos
         new LawyerLoadTask().execute();
     }
+
+    private void showAddScreen(){
+        Intent intent = new Intent(getActivity(), AddEditLawyerActivity.class);
+        startActivityForResult(intent, AddEditLawyerActivity.REQUEST_ADD_LAWYER);
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
